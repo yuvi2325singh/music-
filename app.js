@@ -6,8 +6,8 @@ const demoSongs = [
     title: 'Night Pulse',
     artist: 'Luna Matrix',
     album: 'Neon Drift',
-    image: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=900&q=80',
-    audio_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+    image: '../assets/images/Gabhru.jpg',
+    audio_url: 'assets/songs/gabhru.mp3',
     duration: '3:28',
     plays: 128000,
     color: '#0f7a4f',
@@ -18,8 +18,8 @@ const demoSongs = [
     title: 'Solar Drift',
     artist: 'Nyx Odyssey',
     album: 'Astral Waves',
-    image: 'https://images.unsplash.com/photo-1497032628192-86f99bcd76bc?auto=format&fit=crop&w=900&q=80',
-    audio_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+    image: '../assets/images/barood.jpg',
+    audio_url: 'assets/songs/barood.mp3',
     duration: '4:12',
     plays: 94000,
     color: '#4e8cdb',
@@ -30,8 +30,8 @@ const demoSongs = [
     title: 'Velvet Sky',
     artist: 'Echo Harbor',
     album: 'Afterglow',
-    image: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=900&q=80',
-    audio_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+    image: '../assets/images/Don.jpg',
+    audio_url: 'assets/songs/Don.mp3',
     duration: '3:58',
     plays: 113500,
     color: '#a24878',
@@ -42,8 +42,8 @@ const demoSongs = [
     title: 'Echo Drift',
     artist: 'Nova Echo',
     album: 'Midnight Motion',
-    image: 'https://images.unsplash.com/photo-1487215078519-e21cc028cb29?auto=format&fit=crop&w=900&q=80',
-    audio_url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-4.mp3',
+    image: '../assets/images/Young.jpg',
+    audio_url: 'assets/songs/Vancouver.mp3',
     duration: '4:04',
     plays: 76000,
     color: '#dd6c5f',
@@ -248,7 +248,11 @@ function playSongById(id) {
   state.currentIndex = index;
   const song = state.queue[state.currentIndex];
   dom.audioPlayer.src = song.audio_url;
-  dom.audioPlayer.play();
+  dom.audioPlayer.play().catch(() => {
+    showToast('Failed to play audio. Please try another song.');
+    state.isPlaying = false;
+    dom.playPauseBtn.textContent = '▶';
+  });
   state.isPlaying = true;
   updatePlayerDetails(song);
   dom.playPauseBtn.textContent = '▮▮';
@@ -280,7 +284,11 @@ function togglePlayPause() {
     dom.audioPlayer.pause();
     dom.playPauseBtn.textContent = '▶';
   } else {
-    dom.audioPlayer.play();
+    dom.audioPlayer.play().catch(() => {
+      showToast('Failed to play audio.');
+      state.isPlaying = false;
+      dom.playPauseBtn.textContent = '▶';
+    });
     dom.playPauseBtn.textContent = '▮▮';
   }
   state.isPlaying = !state.isPlaying;
@@ -602,6 +610,11 @@ function attachPlayerEvents() {
       return;
     }
     nextSong();
+  });
+  dom.audioPlayer.addEventListener('error', () => {
+    showToast('Failed to load audio. Please try another song.');
+    state.isPlaying = false;
+    dom.playPauseBtn.textContent = '▶';
   });
 
   dom.playPauseBtn?.addEventListener('click', togglePlayPause);
