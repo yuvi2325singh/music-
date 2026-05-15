@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse Music • Spotify Clone</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <aside class="sidebar">
+      <div class="brand-panel">
+        <div class="brand-logo">Pulse</div>
+        <span class="brand-tag">Music for every mood</span>
+      </div>
+      <nav class="main-menu">
+        <button class="menu-item active" data-view="home">
+          <span class="icon home-icon"></span>
+          <span>Home</span>
+        </button>
+        <button class="menu-item" data-view="search">
+          <span class="icon search-icon"></span>
+          <span>Search</span>
+        </button>
+        <button class="menu-item" data-view="library">
+          <span class="icon library-icon"></span>
+          <span>Your Library</span>
+        </button>
+      </nav>
+      <div class="secondary-menu">
+        <button class="playlist-action">
+          <span class="icon add-icon"></span>
+          Create Playlist
+        </button>
+        <button class="playlist-action">
+          <span class="icon heart-icon"></span>
+          Liked Songs
+        </button>
+      </div>
+      <div class="playlist-panel">
+        <div class="panel-title">Recently played</div>
+        <div class="playlists-list" id="sidebar-playlists"></div>
+      </div>
+      <div class="sidebar-footer">
+        <div class="profile-chip" id="sidebar-profile">
+          <div class="avatar badge">U</div>
+          <div>
+            <span class="small-label">Logged in as</span>
+            <p class="bold-text" id="sidebar-username">Guest</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="main-frame">
+      <header class="topbar" id="topbar">
+        <div class="nav-controls">
+          <button class="circle-btn soft-btn" id="nav-back" aria-label="Go back">◀</button>
+          <button class="circle-btn soft-btn" id="nav-forward" aria-label="Go forward">▶</button>
+        </div>
+        <div class="search-shell">
+          <div class="search-field">
+            <span class="search-icon"></span>
+            <input id="global-search" type="search" placeholder="Search artists, tracks, playlists..." autocomplete="off" />
+          </div>
+          <div class="search-suggestions" id="search-suggestions"></div>
+        </div>
+        <div class="top-actions">
+          <button class="ghost-btn">Upgrade</button>
+          <button class="icon-btn notification-btn" aria-label="Notifications">🔔</button>
+          <button class="profile-btn" id="profile-dropdown-btn">
+            <span class="avatar">P</span>
+            <span class="username-text" id="topbar-name">Profile</span>
+            <span class="chevron">▾</span>
+          </button>
+        </div>
+      </header>
+
+      <main class="workspace">
+        <section class="hero-panel">
+          <div class="hero-badge">Feature Playlist</div>
+          <div class="hero-inner">
+            <div class="hero-copy">
+              <h1>Sounds that move you.</h1>
+              <p>Explore curated playlists, fresh drops, and artist stories that ignite every mood.</p>
+              <div class="hero-actions">
+                <button class="primary-btn" id="hero-play">Play</button>
+                <button class="ghost-btn">Discover</button>
+              </div>
+              <div class="hero-meta">
+                <div class="artist-chip">
+                  <span class="avatar blur-avatar">A</span>
+                  <div>
+                    <span>Pulse Radio</span>
+                    <small>1.2M monthly listeners</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="hero-cover">
+              <div class="cover-glow"></div>
+              <img src="https://images.unsplash.com/photo-1511376777868-611b54f68947?auto=format&fit=crop&w=900&q=80" alt="Featured album" />
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block" id="trending-section">
+          <div class="section-heading">
+            <div>
+              <h2>Trending Songs</h2>
+              <p>What’s hot right now in the music world.</p>
+            </div>
+            <button class="text-btn" id="view-more-trending">View all</button>
+          </div>
+          <div class="horizontal-cards" id="trending-cards"></div>
+        </section>
+
+        <section class="section-block" id="made-for-you">
+          <div class="section-heading">
+            <div>
+              <h2>Made for You</h2>
+              <p>Personal picks, playlists, and artist mixes tailored to your vibe.</p>
+            </div>
+            <button class="text-btn" id="discover-more">Discover</button>
+          </div>
+          <div class="horizontal-cards" id="made-cards"></div>
+        </section>
+
+        <section class="section-block" id="popular-albums">
+          <div class="section-heading">
+            <div>
+              <h2>Popular Albums</h2>
+              <p>Albums with the biggest streams this week.</p>
+            </div>
+          </div>
+          <div class="horizontal-cards" id="album-cards"></div>
+        </section>
+
+        <section class="section-block" id="library-section" hidden>
+          <div class="section-heading">
+            <div>
+              <h2>Your Library</h2>
+              <p>Quick access to liked songs and saved playlists.</p>
+            </div>
+            <button class="text-btn" id="open-liked-songs">Liked songs</button>
+          </div>
+          <div class="library-grid" id="library-grid"></div>
+        </section>
+
+        <section class="section-block" id="search-results-section" hidden>
+          <div class="section-heading">
+            <div>
+              <h2>Search results</h2>
+              <p>Instant results for your search query.</p>
+            </div>
+          </div>
+          <div class="search-results-grid" id="search-results"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-left">
+      <img id="player-cover" class="player-cover" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=120&q=80" alt="Now playing" />
+      <div>
+        <p class="mini-label" id="player-song-title">Pulse Nights</p>
+        <p class="tiny-text" id="player-artist">Deep Beats</p>
+      </div>
+      <button class="icon-btn" id="player-like" aria-label="Like song">♥</button>
+    </div>
+    <div class="player-center">
+      <div class="player-controls">
+        <button class="icon-btn" id="shuffle-btn" aria-label="Shuffle">🔀</button>
+        <button class="icon-btn" id="prev-btn" aria-label="Previous">⏮</button>
+        <button class="play-toggle primary-circle" id="play-pause-btn" aria-label="Play/Pause">▶</button>
+        <button class="icon-btn" id="next-btn" aria-label="Next">⏭</button>
+        <button class="icon-btn" id="repeat-btn" aria-label="Repeat">🔁</button>
+      </div>
+      <div class="progress-shell">
+        <span class="time-label" id="current-time">0:00</span>
+        <div class="progress-track" id="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+          <div class="progress-thumb" id="progress-thumb"></div>
+        </div>
+        <span class="time-label" id="total-time">0:00</span>
+      </div>
+    </div>
+    <div class="player-right">
+      <button class="icon-btn" id="queue-btn" aria-label="Queue">≡</button>
+      <button class="icon-btn" id="device-btn" aria-label="Devices">💻</button>
+      <div class="volume-shell">
+        <button class="icon-btn" id="mute-btn" aria-label="Mute">🔊</button>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.75" />
+      </div>
+    </div>
+  </div>
+
+  <div class="lyrics-modal" id="lyrics-modal" hidden>
+    <div class="lyrics-card">
+      <button class="close-modal" id="close-lyrics">✕</button>
+      <h3>Lyrics board</h3>
+      <p class="mini-label">Live lyrics, song story and playback mood.</p>
+      <div class="lyrics-body" id="lyrics-body">
+        <p>When the night calls the rhythm, we run through the pulse.</p>
+        <p>Every beat, every drop, a memory feeling so close.</p>
+        <p>Your voice becomes the skyline, and I float on the motion.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="modal-overlay" hidden>
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">Confirm action</h3>
+        <button class="close-modal" id="modal-close">✕</button>
+      </div>
+      <p class="modal-body" id="modal-text">Are you sure?</p>
+      <input class="modal-input" id="modal-input" type="text" placeholder="Enter a playlist name" hidden />
+      <div class="modal-actions">
+        <button class="ghost-btn" id="modal-secondary">Cancel</button>
+        <button class="primary-btn" id="modal-primary">Confirm</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+  <audio id="audio-player" preload="metadata"></audio>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

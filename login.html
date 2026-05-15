@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login • Pulse Music</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="auth-page login-page">
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="auth-brand">
+        <h1>Pulse</h1>
+        <p>Sign in to your music workspace.</p>
+      </div>
+      <form id="login-form" class="auth-form">
+        <label>
+          Email
+          <input type="email" id="login-email" required placeholder="you@example.com" />
+        </label>
+        <label>
+          Password
+          <input type="password" id="login-password" required placeholder="Enter your password" />
+        </label>
+        <label class="auth-footer-checkbox">
+          <input type="checkbox" id="remember-me" />
+          Remember me
+        </label>
+        <button type="submit" class="primary-btn">Sign In</button>
+        <p class="auth-switch">New to Pulse? <a href="signup.html">Create an account</a></p>
+        <p class="demo-hint">Demo: demo@pulse.com / demo123</p>
+      </form>
+    </div>
+  </div>
+  <div class="toast-container" id="toast-container"></div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
