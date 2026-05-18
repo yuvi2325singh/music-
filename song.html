@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Song • Pulse Music</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="detail-page">
+  <div class="detail-shell">
+    <header class="detail-topbar">
+      <a class="back-btn" href="index.html">← Home</a>
+      <div class="topbar-center">
+        <div class="search-field">
+          <span class="search-icon"></span>
+          <input type="search" placeholder="Search artists, tracks, playlists..." />
+        </div>
+      </div>
+      <button class="ghost-btn" id="detail-profile-btn">Profile</button>
+    </header>
+
+    <main class="detail-main">
+      <section class="song-hero">
+        <div class="song-artwork">
+          <img id="detail-song-art" src="https://images.unsplash.com/photo-1511376777868-611b54f68947?auto=format&fit=crop&w=600&q=80" alt="Now playing" />
+          <div class="artwork-overlay"></div>
+        </div>
+        <div class="song-info">
+          <span class="song-badge">Now Playing</span>
+          <h1 id="detail-title">Loading track...</h1>
+          <p id="detail-subtitle" class="muted">Artist · Album</p>
+          <div id="detail-plays" class="song-stats">0 plays</div>
+          <div class="song-actions">
+            <button class="primary-btn" id="detail-play">▶ Play</button>
+            <button class="ghost-btn" id="detail-like">♥ Add to favorites</button>
+            <button class="ghost-btn">⋮ More</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="lyrics-section">
+        <h2>Lyrics</h2>
+        <div class="lyrics-content" id="lyrics-display">
+          <p class="muted">Lyrics loading...</p>
+        </div>
+      </section>
+
+      <section class="more-songs-section">
+        <h2>More Songs Like This</h2>
+        <div class="songs-grid" id="detail-related"></div>
+      </section>
+    </main>
+  </div>
+
+  <div class="player-bar" id="player-bar">
+    <div class="player-left">
+      <img id="player-cover" class="player-cover" src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=120&q=80" alt="Now playing" />
+      <div>
+        <p class="mini-label" id="player-song-title">Pulse Nights</p>
+        <p class="tiny-text" id="player-artist">Deep Beats</p>
+      </div>
+      <button class="icon-btn" id="player-like" aria-label="Like song">♥</button>
+    </div>
+    <div class="player-center">
+      <div class="player-controls">
+        <button class="icon-btn" id="shuffle-btn" aria-label="Shuffle">🔀</button>
+        <button class="icon-btn" id="prev-btn" aria-label="Previous">⏮</button>
+        <button class="play-toggle primary-circle" id="play-pause-btn" aria-label="Play/Pause">▶</button>
+        <button class="icon-btn" id="next-btn" aria-label="Next">⏭</button>
+        <button class="icon-btn" id="repeat-btn" aria-label="Repeat">🔁</button>
+      </div>
+      <div class="progress-shell">
+        <span class="time-label" id="current-time">0:00</span>
+        <div class="progress-track" id="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+          <div class="progress-thumb" id="progress-thumb"></div>
+        </div>
+        <span class="time-label" id="total-time">0:00</span>
+      </div>
+    </div>
+    <div class="player-right">
+      <button class="icon-btn" id="queue-btn" aria-label="Queue">≡</button>
+      <button class="icon-btn" id="device-btn" aria-label="Devices">💻</button>
+      <div class="volume-shell">
+        <button class="icon-btn" id="mute-btn" aria-label="Mute">🔊</button>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.75" />
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+  <audio id="audio-player" preload="metadata"></audio>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
+

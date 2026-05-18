@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Album • Pulse Music</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="detail-page">
+  <div class="detail-shell">
+    <header class="detail-topbar">
+      <a class="back-btn" href="index.html">← Home</a>
+      <div class="brand-panel">
+        <div class="brand-logo"><span class="logo-mark">⏿</span> Pulse</div>
+        <span class="brand-tag">Music for every mood</span>
+      </div>
+      <button class="ghost-btn" id="detail-profile-btn">Profile</button>
+    </header>
+
+    <main class="detail-content">
+      <section class="detail-hero">
+        <div class="detail-artwork">
+          <img id="album-art" src="https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80" alt="Album cover" />
+        </div>
+        <div class="detail-info">
+          <span class="detail-badge">Album</span>
+          <h1 id="album-title">Loading album...</h1>
+          <p id="album-artist" class="muted">Artist</p>
+          <div class="detail-actions">
+            <button class="primary-btn" id="album-play-all">Play all</button>
+            <button class="ghost-btn">Favorite album</button>
+          </div>
+          <div class="detail-meta">
+            <span id="album-description">An immersive album experience to explore the full collection.</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="detail-panel">
+        <h2 class="detail-section-title">Tracks</h2>
+        <ul class="track-list" id="album-tracks"></ul>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+  <audio id="audio-player" preload="metadata"></audio>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

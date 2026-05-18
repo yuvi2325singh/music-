@@ -3,9 +3,9 @@ import { supabase } from './supabase.js';
 const demoSongs = [
   {
     id: 's1',
-    title: 'Night Pulse',
-    artist: 'Luna Matrix',
-    album: 'Neon Drift',
+    title: 'MF Gabhru',
+    artist: 'Karan Aujla',
+    album: 'P-Pop Culture',
     image: '../assets/images/Gabhru.jpg',
     audio_url: 'assets/songs/gabhru.mp3',
     duration: '3:28',
@@ -15,9 +15,9 @@ const demoSongs = [
   },
   {
     id: 's2',
-    title: 'Solar Drift',
-    artist: 'Nyx Odyssey',
-    album: 'Astral Waves',
+    title: 'Barood',
+    artist: 'Sidhu Moosewala',
+    album: 'Sidhu',
     image: '../assets/images/barood.jpg',
     audio_url: 'assets/songs/barood.mp3',
     duration: '4:12',
@@ -27,9 +27,9 @@ const demoSongs = [
   },
   {
     id: 's3',
-    title: 'Velvet Sky',
-    artist: 'Echo Harbor',
-    album: 'Afterglow',
+    title: 'Don',
+    artist: 'Diljit Dosanjh',
+    album: 'Diljit',
     image: '../assets/images/Don.jpg',
     audio_url: 'assets/songs/Don.mp3',
     duration: '3:58',
@@ -39,9 +39,9 @@ const demoSongs = [
   },
   {
     id: 's4',
-    title: 'Echo Drift',
-    artist: 'Nova Echo',
-    album: 'Midnight Motion',
+    title: 'Vancouver',
+    artist: 'Cheema Y',
+    album: 'G.O.A.T.',
     image: '../assets/images/Young.jpg',
     audio_url: 'assets/songs/Vancouver.mp3',
     duration: '4:04',
@@ -178,6 +178,30 @@ function saveStoredState() {
   localStorage.setItem('pulse-state', JSON.stringify(snapshot));
 }
 
+function openSongPage(id) {
+  window.location.href = `song.html?id=${encodeURIComponent(id)}`;
+}
+
+function openAlbumPage(id) {
+  window.location.href = `album.html?id=${encodeURIComponent(id)}`;
+}
+
+function openPlaylistPage(id) {
+  window.location.href = `playlist.html?id=${encodeURIComponent(id)}`;
+}
+
+function getSongById(id) {
+  return state.songs.find((song) => song.id === id);
+}
+
+function getAlbumById(id) {
+  return demoAlbums.find((album) => album.id === id);
+}
+
+function getPlaylistById(id) {
+  return state.playlists.find((playlist) => playlist.id === id) || demoPlaylists.find((playlist) => playlist.id === id);
+}
+
 function renderSidebarPlaylists() {
   if (!dom.sidebarPlaylists) return;
   dom.sidebarPlaylists.innerHTML = '';
@@ -187,7 +211,7 @@ function renderSidebarPlaylists() {
     item.className = 'playlist-chip';
     item.textContent = playlist.title;
     item.addEventListener('click', () => {
-      showToast(`Loaded “${playlist.title}” playlist`);
+      openPlaylistPage(playlist.id);
     });
     dom.sidebarPlaylists.append(item);
   });
@@ -216,12 +240,33 @@ function renderCardSection(container, items) {
     const playButton = card.querySelector('.play-card');
     const faveButton = card.querySelector('.favorite-card');
 
+    card.addEventListener('click', (event) => {
+      if (event.target.closest('button')) return;
+      if (item.audio_url) {
+        openSongPage(item.id);
+      } else {
+        openAlbumPage(item.id);
+      }
+    });
+
     if (item.audio_url) {
-      playButton.addEventListener('click', () => playSongById(item.id));
-      faveButton.addEventListener('click', () => toggleLike(item.id));
+      playButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        playSongById(item.id);
+      });
+      faveButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        toggleLike(item.id);
+      });
     } else {
-      playButton.addEventListener('click', () => showToast(`Opening album “${item.title}”`));
-      faveButton.addEventListener('click', () => showToast(`Saved “${item.title}” to your library`));
+      playButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        openAlbumPage(item.id);
+      });
+      faveButton.addEventListener('click', (event) => {
+        event.stopPropagation();
+        showToast(`Saved “${item.title}” to your library`);
+      });
     }
 
     container.append(card);
@@ -366,8 +411,18 @@ function displaySearchResults(query) {
         </div>
       </div>
     `;
-    tile.querySelector('.play-card').addEventListener('click', () => playSongById(song.id));
-    tile.querySelector('.favorite-card').addEventListener('click', () => toggleLike(song.id));
+    tile.addEventListener('click', (event) => {
+      if (event.target.closest('button')) return;
+      openSongPage(song.id);
+    });
+    tile.querySelector('.play-card').addEventListener('click', (event) => {
+      event.stopPropagation();
+      playSongById(song.id);
+    });
+    tile.querySelector('.favorite-card').addEventListener('click', (event) => {
+      event.stopPropagation();
+      toggleLike(song.id);
+    });
     dom.searchResults.append(tile);
   });
   dom.searchResultsSection.hidden = false;
@@ -480,10 +535,165 @@ function renderLibrary() {
         </div>
       </div>
     `;
-    item.querySelector('.play-card').addEventListener('click', () => playSongById(song.id));
-    item.querySelector('.favorite-card').addEventListener('click', () => toggleLike(song.id));
+    item.addEventListener('click', (event) => {
+      if (event.target.closest('button')) return;
+      openSongPage(song.id);
+    });
+    item.querySelector('.play-card').addEventListener('click', (event) => {
+      event.stopPropagation();
+      playSongById(song.id);
+    });
+    item.querySelector('.favorite-card').addEventListener('click', (event) => {
+      event.stopPropagation();
+      toggleLike(song.id);
+    });
     dom.libraryGrid.append(item);
   });
+}
+
+function renderSongDetailPage() {
+  const songId = new URLSearchParams(window.location.search).get('id');
+  const song = getSongById(songId);
+  if (!song) {
+    document.body.innerHTML = '<div class="detail-shell"><div class="detail-content"><h1>Song not found</h1><p>Try returning to the home page.</p><a class="text-btn" href="index.html">Back to home</a></div></div>';
+    return;
+  }
+
+  document.title = `${song.title} • Pulse Music`;
+  
+  const art = document.querySelector('#detail-song-art');
+  const title = document.querySelector('#detail-title');
+  const subtitle = document.querySelector('#detail-subtitle');
+  const plays = document.querySelector('#detail-plays');
+  const lyricsDisplay = document.querySelector('#lyrics-display');
+  const relatedGrid = document.querySelector('#detail-related');
+
+  if (art) art.src = song.image;
+  if (title) title.textContent = song.title;
+  if (subtitle) subtitle.textContent = `${song.artist} · ${song.album}`;
+  if (plays) plays.textContent = `${song.plays.toLocaleString()} plays`;
+  
+  if (lyricsDisplay) {
+    lyricsDisplay.innerHTML = song.lyrics.length > 0 
+      ? song.lyrics.map((line) => `<p class="lyric-line">${line}</p>`).join('')
+      : '<p class="muted">No lyrics available for this song.</p>';
+  }
+  
+  if (relatedGrid) {
+    relatedGrid.innerHTML = '';
+    state.songs.filter((item) => item.id !== song.id).slice(0, 6).forEach((item) => {
+      const card = document.createElement('article');
+      card.className = 'card';
+      card.innerHTML = `
+        <img src="${item.image}" alt="${item.title}" />
+        <div class="card-content">
+          <h3>${item.title}</h3>
+          <p>${item.artist}</p>
+          <div class="card-actions">
+            <button class="text-btn play-card">Play</button>
+            <button class="text-btn">Open</button>
+          </div>
+        </div>
+      `;
+      card.addEventListener('click', (event) => {
+        if (event.target.closest('button')) return;
+        openSongPage(item.id);
+      });
+      card.querySelector('.play-card').addEventListener('click', (event) => {
+        event.stopPropagation();
+        playSongById(item.id);
+      });
+      card.querySelector('.text-btn:last-child').addEventListener('click', (event) => {
+        event.stopPropagation();
+        openSongPage(item.id);
+      });
+      relatedGrid.append(card);
+    });
+  }
+}
+
+function renderAlbumDetailPage() {
+  const albumId = new URLSearchParams(window.location.search).get('id');
+  const album = getAlbumById(albumId);
+  const albumTitle = document.querySelector('#album-title');
+  const albumArtist = document.querySelector('#album-artist');
+  const albumArt = document.querySelector('#album-art');
+  const albumDescription = document.querySelector('#album-description');
+  const albumTracks = document.querySelector('#album-tracks');
+
+  if (!album) {
+    document.body.innerHTML = '<div class="detail-shell"><div class="detail-content"><h1>Album not found</h1><p>Return to the home page to explore other music.</p><a class="text-btn" href="index.html">Back to home</a></div></div>';
+    return;
+  }
+
+  document.title = `${album.title} • Pulse Music`;
+  if (albumArt) albumArt.src = album.image;
+  if (albumTitle) albumTitle.textContent = album.title;
+  if (albumArtist) albumArtist.textContent = album.artist;
+  if (albumDescription) albumDescription.textContent = `Discover the full album ${album.title} by ${album.artist}, including curated tracks and bonus content.`;
+  const tracks = state.songs.filter((song) => song.album === album.title);
+  if (albumTracks) {
+    albumTracks.innerHTML = tracks.length ? tracks.map((song, index) => `
+      <li class="track-item">
+        <span>${index + 1}. ${song.title}</span>
+        <div class="track-actions">
+          <button class="text-btn" data-id="${song.id}">Play</button>
+          <button class="text-btn" data-id="${song.id}">Open</button>
+        </div>
+      </li>
+    `).join('') : '<li class="muted">No tracks found for this album yet.</li>';
+    albumTracks.querySelectorAll('.text-btn').forEach((button) => {
+      const id = button.dataset.id;
+      button.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (button.textContent.includes('Play')) {
+          playSongById(id);
+        } else {
+          openSongPage(id);
+        }
+      });
+    });
+  }
+}
+
+function renderPlaylistDetailPage() {
+  const playlistId = new URLSearchParams(window.location.search).get('id');
+  const playlist = getPlaylistById(playlistId);
+  const playlistTitle = document.querySelector('#playlist-title');
+  const playlistDescription = document.querySelector('#playlist-description');
+  const playlistTracks = document.querySelector('#playlist-tracks');
+
+  if (!playlist) {
+    document.body.innerHTML = '<div class="detail-shell"><div class="detail-content"><h1>Playlist not found</h1><p>Try another selection from the sidebar.</p><a class="text-btn" href="index.html">Back to home</a></div></div>';
+    return;
+  }
+
+  document.title = `${playlist.title} • Pulse Music`;
+  if (playlistTitle) playlistTitle.textContent = playlist.title;
+  if (playlistDescription) playlistDescription.textContent = `A curated collection for ${playlist.title.toLowerCase()}, updated just for you.`;
+  const songs = state.songs.slice(0, 6);
+  if (playlistTracks) {
+    playlistTracks.innerHTML = songs.map((song, index) => `
+      <li class="track-item">
+        <span>${index + 1}. ${song.title}</span>
+        <div class="track-actions">
+          <button class="text-btn" data-id="${song.id}">Play</button>
+          <button class="text-btn" data-id="${song.id}">Open</button>
+        </div>
+      </li>
+    `).join('');
+    playlistTracks.querySelectorAll('.text-btn').forEach((button) => {
+      const id = button.dataset.id;
+      button.addEventListener('click', (event) => {
+        event.stopPropagation();
+        if (button.textContent.includes('Play')) {
+          playSongById(id);
+        } else {
+          openSongPage(id);
+        }
+      });
+    });
+  }
 }
 
 function setActiveView(view) {
@@ -692,6 +902,50 @@ function attachPlayerEvents() {
     showToast('No new notifications yet.');
   });
 
+  document.querySelectorAll('.detail-tab').forEach((button) => {
+    button.addEventListener('click', () => {
+      document.querySelectorAll('.detail-tab').forEach((tab) => tab.classList.remove('active'));
+      button.classList.add('active');
+      document.querySelectorAll('#detail-overview, #detail-lyrics, #detail-related').forEach((section) => {
+        if (section) section.hidden = section.id !== `detail-${button.dataset.tab}`;
+      });
+    });
+  });
+
+  document.querySelector('#detail-play')?.addEventListener('click', () => {
+    const id = new URLSearchParams(window.location.search).get('id');
+    if (id) playSongById(id);
+  });
+  document.querySelector('#detail-like')?.addEventListener('click', () => {
+    const id = new URLSearchParams(window.location.search).get('id');
+    if (id) {
+      toggleLike(id);
+      const btn = document.querySelector('#detail-like');
+      if (btn) {
+        const song = getSongById(id);
+        btn.textContent = state.likedSongs.includes(id) ? '♥ Added to favorites' : '♥ Add to favorites';
+      }
+    }
+  });
+  document.querySelector('#detail-add')?.addEventListener('click', () => {
+    showToast('Add to playlist action coming soon.');
+  });
+  document.querySelector('#album-play-all')?.addEventListener('click', () => {
+    const albumId = new URLSearchParams(window.location.search).get('id');
+    const album = getAlbumById(albumId);
+    const tracks = state.songs.filter((song) => song.album === album?.title);
+    if (tracks.length) playSongById(tracks[0].id);
+  });
+  document.querySelector('#detail-profile-btn')?.addEventListener('click', () => {
+    showDialog({
+      title: 'Profile',
+      message: 'You are logged in as Demo User',
+      primaryLabel: 'Sign out',
+      secondaryLabel: 'Cancel',
+      onPrimary: handleLogout,
+    });
+  });
+
   if (dom.closeLyrics) {
     dom.closeLyrics.addEventListener('click', () => {
       if (dom.lyricsModal) dom.lyricsModal.hidden = true;
@@ -777,7 +1031,8 @@ async function bootstrap() {
   if (dom.signupForm) {
     dom.signupForm.addEventListener('submit', handleSignup);
   }
-  if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
+  const path = window.location.pathname;
+  if (path.endsWith('index.html') || path.endsWith('/')) {
     if (!state.session) {
       window.location.href = 'login.html';
       return;
@@ -788,6 +1043,39 @@ async function bootstrap() {
     attachPlayerEvents();
     mountProfileActions();
     setupScrollEffects();
+  } else if (path.endsWith('song.html')) {
+    if (!state.session) {
+      window.location.href = 'login.html';
+      return;
+    }
+    initializeState();
+    renderSidebarPlaylists();
+    attachPlayerEvents();
+    mountProfileActions();
+    setupScrollEffects();
+    renderSongDetailPage();
+  } else if (path.endsWith('album.html')) {
+    if (!state.session) {
+      window.location.href = 'login.html';
+      return;
+    }
+    initializeState();
+    renderSidebarPlaylists();
+    attachPlayerEvents();
+    mountProfileActions();
+    setupScrollEffects();
+    renderAlbumDetailPage();
+  } else if (path.endsWith('playlist.html')) {
+    if (!state.session) {
+      window.location.href = 'login.html';
+      return;
+    }
+    initializeState();
+    renderSidebarPlaylists();
+    attachPlayerEvents();
+    mountProfileActions();
+    setupScrollEffects();
+    renderPlaylistDetailPage();
   }
 }
 

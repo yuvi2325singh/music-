@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Playlist • Pulse Music</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="detail-page">
+  <div class="detail-shell">
+    <header class="detail-topbar">
+      <a class="back-btn" href="index.html">← Home</a>
+      <div class="brand-panel">
+        <div class="brand-logo"><span class="logo-mark">⏿</span> Pulse</div>
+        <span class="brand-tag">Music for every mood</span>
+      </div>
+      <button class="ghost-btn" id="detail-profile-btn">Profile</button>
+    </header>
+
+    <main class="detail-content">
+      <section class="detail-hero">
+        <div class="detail-artwork">
+          <img src="https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=800&q=80" alt="Playlist artwork" />
+        </div>
+        <div class="detail-info">
+          <span class="detail-badge">Playlist</span>
+          <h1 id="playlist-title">Loading playlist...</h1>
+          <p id="playlist-description" class="muted">A curated mix built for your mood.</p>
+          <div class="detail-actions">
+            <button class="primary-btn">Play playlist</button>
+            <button class="ghost-btn">Add to library</button>
+          </div>
+          <div class="detail-meta">
+            <span>Updated for you every day</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="detail-panel">
+        <h2 class="detail-section-title">Playlist tracks</h2>
+        <ul class="track-list" id="playlist-tracks"></ul>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+  <audio id="audio-player" preload="metadata"></audio>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
