@@ -13,8 +13,8 @@
   <div class="page-shell">
     <aside class="sidebar">
       <div class="brand-panel">
-        <div class="brand-logo"><span class="logo-mark">⏿</span> Pulse</div>
-        <span class="brand-tag">Music for every mood</span>
+        <div class="brand-logo"><span class="logo-mark">♫</span> Pulse</div>
+        <span class="brand-tag">Sound, style, and rhythm.</span>
       </div>
       <nav class="main-menu">
         <button class="menu-item active" data-view="home">
@@ -42,6 +42,8 @@
       </div>
       <div class="playlist-panel">
         <div class="panel-title">Recently played</div>
+        <div class="recently-played-list" id="recently-played"></div>
+        <div class="panel-title">Your playlists</div>
         <div class="playlists-list" id="sidebar-playlists"></div>
       </div>
       <div class="sidebar-footer">
@@ -60,18 +62,28 @@
         <div class="search-shell">
           <div class="search-field">
             <span class="search-icon"></span>
-            <input id="global-search" type="search" placeholder="Search artists, tracks, playlists..." autocomplete="off" />
+            <input id="global-search" type="search" placeholder="What do you want to play?" autocomplete="off" />
           </div>
           <div class="search-suggestions" id="search-suggestions"></div>
         </div>
         <div class="top-actions">
-          <button class="ghost-btn">Upgrade</button>
+          <button class="ghost-btn" id="premium-btn">Premium</button>
+          <button class="ghost-btn" id="upgrade-btn">Upgrade</button>
           <button class="icon-btn notification-btn" aria-label="Notifications">🔔</button>
           <button class="profile-btn" id="profile-dropdown-btn">
             <span class="avatar">P</span>
             <span class="username-text" id="topbar-name">Profile</span>
             <span class="chevron">▾</span>
           </button>
+        </div>
+        <div class="notification-panel" id="notification-panel">
+          <div class="notification-panel-header">
+            <span>Notifications</span>
+            <button class="text-btn" id="clear-notifications">Clear</button>
+          </div>
+          <div class="notification-list" id="notification-list">
+            <div class="notification-empty">No notifications yet. Play a song or like a track to see updates.</div>
+          </div>
         </div>
       </header>
 
@@ -125,6 +137,17 @@
           <div class="horizontal-cards" id="made-cards"></div>
         </section>
 
+        <section class="section-block" id="top-artists-section">
+          <div class="section-heading">
+            <div>
+              <h2>Top Artists</h2>
+              <p>Follow the artists shaping your next favorite track.</p>
+            </div>
+            <button class="text-btn" id="view-more-artists">Browse all</button>
+          </div>
+          <div class="horizontal-cards" id="top-artist-cards"></div>
+        </section>
+
         <section class="section-block" id="popular-albums">
           <div class="section-heading">
             <div>
@@ -154,6 +177,42 @@
             </div>
           </div>
           <div class="search-results-grid" id="search-results"></div>
+        </section>
+
+        <section class="section-block" id="premium-section" hidden>
+          <div class="section-heading">
+            <div>
+              <h2>Premium</h2>
+              <p>Unlock ad-free listening, offline downloads, and premium-only playlists.</p>
+            </div>
+          </div>
+          <div class="premium-panel">
+            <div class="premium-card">
+              <h3>Unlimited premium access</h3>
+              <p>Enjoy uninterrupted music, offline downloads, and higher quality audio across devices.</p>
+              <ul>
+                <li>Ad-free playback</li>
+                <li>Unlimited downloads</li>
+                <li>Offline listening</li>
+                <li>Premium-only playlists</li>
+              </ul>
+              <button class="primary-btn">Start premium</button>
+            </div>
+            <div class="premium-details">
+              <div class="premium-feature">
+                <strong>High quality audio</strong>
+                <p>Listen in crystal-clear sound with priority streaming.</p>
+              </div>
+              <div class="premium-feature">
+                <strong>Family sharing</strong>
+                <p>Share premium benefits with friends and family.</p>
+              </div>
+              <div class="premium-feature">
+                <strong>Exclusive playlists</strong>
+                <p>Access hand-picked premium playlists and new drops.</p>
+              </div>
+            </div>
+          </div>
         </section>
       </main>
     </div>
