@@ -639,8 +639,8 @@ body.search-active .search-results-grid {
 
 .notification-panel {
   position: fixed;
-  right: 24px;
-  bottom: 24px;
+  right: 32px;
+  top: 95px;
   width: min(360px, calc(100vw - 48px));
   border-radius: 24px;
   background: rgba(12,12,12,0.98);
