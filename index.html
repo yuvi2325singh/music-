@@ -182,37 +182,95 @@
         <section class="section-block" id="premium-section" hidden>
           <div class="section-heading">
             <div>
-              <h2>Premium</h2>
-              <p>Unlock ad-free listening, offline downloads, and premium-only playlists.</p>
+              <h2>Premium Plans</h2>
+              <p>Choose the perfect plan for your music listening experience.</p>
             </div>
           </div>
-          <div class="premium-panel">
-            <div class="premium-card">
-              <h3>Unlimited premium access</h3>
-              <p>Enjoy uninterrupted music, offline downloads, and higher quality audio across devices.</p>
-              <ul>
-                <li>Ad-free playback</li>
-                <li>Unlimited downloads</li>
-                <li>Offline listening</li>
-                <li>Premium-only playlists</li>
+          <div class="premium-plans-grid">
+            <div class="premium-plan-card">
+              <div class="plan-badge">Popular</div>
+              <h3>Free</h3>
+              <div class="plan-price">₹0<span>/month</span></div>
+              <p class="plan-desc">Great for casual listeners</p>
+              <ul class="plan-features">
+                <li>✓ Ad-supported playback</li>
+                <li>✓ Standard audio quality</li>
+                <li>✓ Mobile & desktop access</li>
+                <li>✓ Create playlists</li>
               </ul>
-              <button class="primary-btn">Start premium</button>
+              <button class="ghost-btn plan-btn">Current Plan</button>
             </div>
-            <div class="premium-details">
-              <div class="premium-feature">
-                <strong>High quality audio</strong>
-                <p>Listen in crystal-clear sound with priority streaming.</p>
-              </div>
-              <div class="premium-feature">
-                <strong>Family sharing</strong>
-                <p>Share premium benefits with friends and family.</p>
-              </div>
-              <div class="premium-feature">
-                <strong>Exclusive playlists</strong>
-                <p>Access hand-picked premium playlists and new drops.</p>
+            <div class="premium-plan-card featured">
+              <div class="plan-badge-featured">Best Value</div>
+              <h3>Premium</h3>
+              <div class="plan-price">₹119<span>/month</span></div>
+              <p class="plan-desc">For the music lover</p>
+              <ul class="plan-features">
+                <li>✓ Ad-free playback</li>
+                <li>✓ High quality audio (320kbps)</li>
+                <li>✓ Offline downloads (30 songs)</li>
+                <li>✓ Skip unlimited tracks</li>
+                <li>✓ Priority customer support</li>
+              </ul>
+              <button class="primary-btn plan-btn">Upgrade Now</button>
+            </div>
+            <div class="premium-plan-card">
+              <div class="plan-badge">Premium+</div>
+              <h3>Premium+</h3>
+              <div class="plan-price">₹199<span>/month</span></div>
+              <p class="plan-desc">Maximum audio quality</p>
+              <ul class="plan-features">
+                <li>✓ All Premium features</li>
+                <li>✓ Lossless audio (HiFi)</li>
+                <li>✓ Unlimited downloads</li>
+                <li>✓ Spatial audio support</li>
+                <li>✓ Early access to new features</li>
+              </ul>
+              <button class="ghost-btn plan-btn">Learn More</button>
+            </div>
+            <div class="premium-plan-card">
+              <div class="plan-badge">Family</div>
+              <h3>Family</h3>
+              <div class="plan-price">₹299<span>/month</span></div>
+              <p class="plan-desc">Up to 6 family members</p>
+              <ul class="plan-features">
+                <li>✓ Premium for 6 accounts</li>
+                <li>✓ Individual profiles</li>
+                <li>✓ Parental controls</li>
+                <li>✓ Shared family library</li>
+                <li>✓ Save up to 50% per person</li>
+              </ul>
+              <button class="ghost-btn plan-btn">Family Plan</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-block" id="artist-profile-section" hidden>
+          <div class="artist-profile-header">
+            <div class="artist-banner">
+              <img id="artist-cover" src="" alt="Artist" class="artist-cover" />
+              <div class="artist-cover-overlay"></div>
+            </div>
+            <div class="artist-profile-info">
+              <span class="artist-badge">Artist</span>
+              <h1 id="artist-name">Artist Name</h1>
+              <p id="artist-genre">Genre</p>
+              <p id="artist-stats" class="artist-stats">0 followers</p>
+              <div class="artist-profile-actions">
+                <button class="primary-btn" id="artist-follow-btn">Follow</button>
+                <button class="ghost-btn" id="artist-play-btn">Play</button>
               </div>
             </div>
           </div>
+          <section class="section-block" id="artist-songs-section">
+            <div class="section-heading">
+              <div>
+                <h2>Popular Songs</h2>
+                <p>Most played tracks from this artist</p>
+              </div>
+            </div>
+            <div class="horizontal-cards" id="artist-songs-grid"></div>
+          </section>
         </section>
       </main>
     </div>

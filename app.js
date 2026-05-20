@@ -84,24 +84,32 @@ const demoArtists = [
     name: 'Karan Aujla',
     genre: 'Punjabi Pop',
     image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80',
+    followers: 1200000,
+    songs: ['s1'],
   },
   {
     id: 'ar2',
     name: 'Sidhu Moosewala',
     genre: 'Hip Hop',
     image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80',
+    followers: 950000,
+    songs: ['s2'],
   },
   {
     id: 'ar3',
     name: 'Diljit Dosanjh',
     genre: 'Bhangra',
     image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80',
+    followers: 2100000,
+    songs: ['s3'],
   },
   {
     id: 'ar4',
-    name: 'Nova Echo',
+    name: 'Cheema Y',
     genre: 'Electronica',
     image: 'https://images.unsplash.com/photo-1497032205916-ac775f0649ae?auto=format&fit=crop&w=800&q=80',
+    followers: 450000,
+    songs: ['s4'],
   },
 ];
 
@@ -119,6 +127,7 @@ const state = {
   songs: demoSongs,
   playlists: [],
   likedSongs: [],
+  followedArtists: [],
   currentIndex: 0,
   isPlaying: false,
   queue: [...demoSongs],
@@ -208,6 +217,7 @@ function saveStoredState() {
   const snapshot = {
     playlists: state.playlists,
     likedSongs: state.likedSongs,
+    followedArtists: state.followedArtists,
     queue: state.queue,
     currentIndex: state.currentIndex,
     isPlaying: state.isPlaying,
@@ -269,12 +279,20 @@ function openPlaylistPage(id) {
   window.location.href = `playlist.html?id=${encodeURIComponent(id)}`;
 }
 
+function openArtistPage(id) {
+  window.location.href = `index.html?artist=${encodeURIComponent(id)}`;
+}
+
 function getSongById(id) {
   return state.songs.find((song) => song.id === id);
 }
 
 function getAlbumById(id) {
   return demoAlbums.find((album) => album.id === id);
+}
+
+function getArtistById(id) {
+  return demoArtists.find((artist) => artist.id === id);
 }
 
 function getPlaylistById(id) {
@@ -422,7 +440,7 @@ function renderCardSection(container, items) {
       if (item.audio_url) {
         openSongPage(item.id);
       } else if (item.name) {
-        showToast(`Following ${item.name}`);
+        openArtistPage(item.id);
       } else {
         openAlbumPage(item.id);
       }
@@ -440,11 +458,13 @@ function renderCardSection(container, items) {
     } else if (item.name) {
       playButton.addEventListener('click', (event) => {
         event.stopPropagation();
-        showToast(`Following ${item.name}`);
+        toggleFollow(item.id);
+        const isFollowing = state.followedArtists.includes(item.id);
+        playButton.textContent = isFollowing ? 'Following' : 'Follow';
       });
       faveButton.addEventListener('click', (event) => {
         event.stopPropagation();
-        showToast(`Artist ${item.name} added to your favourites`);
+        openArtistPage(item.id);
       });
     } else {
       playButton.addEventListener('click', (event) => {
@@ -466,6 +486,12 @@ function renderSections() {
   renderCardSection(dom.madeCards, state.songs.slice().reverse());
   renderCardSection(dom.albumCards, demoAlbums);
   renderTopArtists();
+  
+  // Hide premium and artist sections
+  const premiumSection = document.querySelector('#premium-section');
+  const artistSection = document.querySelector('#artist-profile-section');
+  if (premiumSection) premiumSection.hidden = true;
+  if (artistSection) artistSection.hidden = true;
 }
 
 function updatePlayerDetails(song) {
@@ -510,6 +536,26 @@ function toggleLike(id) {
     dom.playerLike.textContent = exists ? '♡' : '♥';
   }
   saveStoredState();
+}
+
+function toggleFollow(artistId) {
+  const exists = state.followedArtists.includes(artistId);
+  const artist = getArtistById(artistId);
+  if (exists) {
+    state.followedArtists = state.followedArtists.filter((id) => id !== artistId);
+    showToast(`Unfollowed ${artist?.name}`);
+    addNotification(`Unfollowed ${artist?.name}`);
+  } else {
+    state.followedArtists.push(artistId);
+    showToast(`Following ${artist?.name}`);
+    addNotification(`Started following ${artist?.name}`);
+  }
+  saveStoredState();
+  const followBtn = document.querySelector('#artist-follow-btn');
+  if (followBtn) {
+    followBtn.textContent = exists ? 'Follow' : 'Following';
+    followBtn.classList.toggle('following', !exists);
+  }
 }
 
 function togglePlayPause() {
@@ -912,6 +958,60 @@ function renderPlaylistDetailPage() {
   }
 }
 
+function renderArtistProfilePage() {
+  const artistId = new URLSearchParams(window.location.search).get('artist');
+  const artist = getArtistById(artistId);
+  
+  if (!artist) {
+    return;
+  }
+
+  const artistNameEl = document.querySelector('#artist-name');
+  const artistGenreEl = document.querySelector('#artist-genre');
+  const artistStatsEl = document.querySelector('#artist-stats');
+  const artistCoverEl = document.querySelector('#artist-cover');
+  const artistFollowBtn = document.querySelector('#artist-follow-btn');
+  const artistPlayBtn = document.querySelector('#artist-play-btn');
+  const artistSongsGrid = document.querySelector('#artist-songs-grid');
+  const artistProfileSection = document.querySelector('#artist-profile-section');
+  const artistSongsSection = document.querySelector('#artist-songs-section');
+
+  if (artistNameEl) artistNameEl.textContent = artist.name;
+  if (artistGenreEl) artistGenreEl.textContent = artist.genre;
+  if (artistStatsEl) artistStatsEl.textContent = `${artist.followers?.toLocaleString()} followers`;
+  if (artistCoverEl) artistCoverEl.src = artist.image;
+  
+  const isFollowing = state.followedArtists.includes(artistId);
+  if (artistFollowBtn) {
+    artistFollowBtn.textContent = isFollowing ? 'Following' : 'Follow';
+    artistFollowBtn.classList.toggle('following', isFollowing);
+    artistFollowBtn.addEventListener('click', () => {
+      toggleFollow(artistId);
+    });
+  }
+
+  if (artistPlayBtn) {
+    const artistSongs = state.songs.filter((song) => demoArtists.find((a) => a.id === artistId)?.songs?.includes(song.id));
+    if (artistSongs.length > 0) {
+      artistPlayBtn.addEventListener('click', () => playSongById(artistSongs[0].id));
+    }
+  }
+
+  const artistSongs = state.songs.filter((song) => demoArtists.find((a) => a.id === artistId)?.songs?.includes(song.id));
+  if (artistSongsGrid) {
+    artistSongsGrid.innerHTML = '';
+    if (artistSongs.length > 0) {
+      renderCardSection(artistSongsGrid, artistSongs);
+    } else {
+      artistSongsSection.hidden = true;
+    }
+  }
+
+  if (artistProfileSection) {
+    artistProfileSection.hidden = false;
+  }
+}
+
 function setActiveView(view) {
   document.querySelectorAll('.menu-item').forEach((button) => {
     button.classList.toggle('active', button.dataset.view === view);
@@ -920,9 +1020,25 @@ function setActiveView(view) {
   const hero = document.querySelector('.hero-panel');
   if (hero) hero.hidden = view !== 'home';
 
-  if (dom.searchResultsSection) dom.searchResultsSection.hidden = view !== 'search';
-  if (dom.librarySection) dom.librarySection.hidden = view !== 'library';
-  if (dom.premiumSection) dom.premiumSection.hidden = view !== 'premium';
+  document.querySelectorAll('.section-block').forEach((section) => {
+    if (view === 'home') {
+      section.hidden = section.id === 'search-results-section' || section.id === 'library-section' || section.id === 'premium-section' || section.id === 'artist-profile-section';
+    } else if (view === 'search') {
+      section.hidden = section.id !== 'search-results-section';
+    } else if (view === 'library') {
+      section.hidden = section.id !== 'library-section';
+    } else if (view === 'premium') {
+      section.hidden = section.id !== 'premium-section';
+    } else if (view === 'artist') {
+      section.hidden = section.id !== 'artist-profile-section';
+    }
+  });
+
+  if (view === 'home') {
+    if (dom.searchInput) dom.searchInput.value = '';
+    if (dom.searchSuggestions) dom.searchSuggestions.classList.remove('active');
+    renderSections();
+  }
 
   if (view === 'search' && dom.searchInput) {
     dom.searchInput.focus();
@@ -1224,6 +1340,7 @@ function initializeState() {
   if (stored) {
     state.playlists = stored.playlists || demoPlaylists;
     state.likedSongs = stored.likedSongs || [];
+    state.followedArtists = stored.followedArtists || [];
     state.queue = stored.queue.length ? stored.queue.map((songRef) => demoSongs.find((song) => song.id === songRef.id) || songRef) : [...demoSongs];
     state.currentIndex = stored.currentIndex || 0;
     state.isPlaying = stored.isPlaying || false;
@@ -1231,6 +1348,7 @@ function initializeState() {
   } else {
     state.playlists = demoPlaylists;
     state.likedSongs = [];
+    state.followedArtists = [];
   }
   if (dom.lyricsModal) dom.lyricsModal.hidden = true;
   updatePlayerDetails(state.queue[state.currentIndex]);
@@ -1250,6 +1368,14 @@ function mountProfileActions() {
       onPrimary: handleLogout,
     });
   });
+  
+  // Set profile pictures to be consistent
+  const avatarElements = document.querySelectorAll('.avatar');
+  const userInitial = state.user?.user_metadata?.username?.charAt(0).toUpperCase() || 
+                     state.user?.email?.charAt(0).toUpperCase() || 'U';
+  avatarElements.forEach((avatar) => {
+    avatar.textContent = userInitial;
+  });
 }
 
 function setupScrollEffects() {
@@ -1268,6 +1394,30 @@ async function bootstrap() {
   if (dom.signupForm) {
     dom.signupForm.addEventListener('submit', handleSignup);
   }
+
+  // Add password toggle functionality
+  const passwordToggle = document.querySelector('#password-toggle');
+  const loginPasswordInput = document.querySelector('#login-password');
+  if (passwordToggle && loginPasswordInput) {
+    passwordToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isPassword = loginPasswordInput.type === 'password';
+      loginPasswordInput.type = isPassword ? 'text' : 'password';
+      passwordToggle.textContent = isPassword ? '🙈' : '👁️';
+    });
+  }
+
+  const signupPasswordToggle = document.querySelector('#signup-password-toggle');
+  const signupPasswordInput = document.querySelector('#signup-password');
+  if (signupPasswordToggle && signupPasswordInput) {
+    signupPasswordToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      const isPassword = signupPasswordInput.type === 'password';
+      signupPasswordInput.type = isPassword ? 'text' : 'password';
+      signupPasswordToggle.textContent = isPassword ? '🙈' : '👁️';
+    });
+  }
+
   const path = window.location.pathname;
   if (path.endsWith('index.html') || path.endsWith('/')) {
     if (!state.session) {
@@ -1275,13 +1425,25 @@ async function bootstrap() {
       return;
     }
     initializeState();
-    renderSections();
-    renderSidebarPlaylists();
-    renderRecentlyPlayed();
-    attachPlayerEvents();
-    mountProfileActions();
-    setupScrollEffects();
-    if (dom.premiumSection) dom.premiumSection.hidden = true;
+    
+    const artistId = new URLSearchParams(window.location.search).get('artist');
+    if (artistId) {
+      // Render artist profile
+      renderSidebarPlaylists();
+      renderArtistProfilePage();
+      attachPlayerEvents();
+      mountProfileActions();
+      setupScrollEffects();
+    } else {
+      // Render home page
+      renderSections();
+      renderSidebarPlaylists();
+      renderRecentlyPlayed();
+      attachPlayerEvents();
+      mountProfileActions();
+      setupScrollEffects();
+      if (dom.premiumSection) dom.premiumSection.hidden = true;
+    }
   } else if (path.endsWith('song.html')) {
     if (!state.session) {
       window.location.href = 'login.html';

@@ -223,9 +223,11 @@ a {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: linear-gradient(135deg, rgba(29,185,84,0.25), rgba(255,255,255,0.08));
+  background: linear-gradient(135deg, rgba(29,185,84,0.35), rgba(29,185,84,0.15));
   color: var(--text);
   font-weight: 700;
+  font-size: 1rem;
+  flex-shrink: 0;
 }
 
 .badge {
@@ -264,11 +266,11 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 18px;
-  padding: 16px 32px;
-  background: rgba(8,8,8,0.95);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+  padding: 18px 32px;
+  background: rgba(8,8,8,0.98);
+  backdrop-filter: blur(30px);
+  border-bottom: 1px solid rgba(29,185,84,0.15);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
   position: relative;
 }
 
@@ -387,9 +389,9 @@ body.search-active .search-results-grid {
   gap: 14px;
   padding: 14px 20px;
   border-radius: 999px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.08);
-  transition: border-color var(--transition), box-shadow var(--transition);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: all var(--transition);
 }
 
 .search-field:focus-within {
@@ -491,6 +493,17 @@ body.search-active .search-results-grid {
   padding: 10px 14px;
   border-radius: 999px;
   background: rgba(255,255,255,0.06);
+  transition: background var(--transition);
+}
+
+.profile-btn:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+.profile-btn .avatar {
+  width: 36px;
+  height: 36px;
+  font-size: 0.95rem;
 }
 
 .username-text {
@@ -720,6 +733,182 @@ body.search-active .search-results-grid {
   margin-bottom: 8px;
 }
 
+.premium-plans-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.premium-plan-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 28px;
+  padding: 32px 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  transition: all var(--transition);
+}
+
+.premium-plan-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(29,185,84,0.3);
+  box-shadow: 0 20px 60px rgba(29,185,84,0.1);
+}
+
+.premium-plan-card.featured {
+  border-color: rgba(29,185,84,0.5);
+  background: linear-gradient(135deg, rgba(29,185,84,0.15), rgba(29,185,84,0.08));
+  transform: scale(1.02);
+}
+
+.plan-badge,
+.plan-badge-featured {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.plan-badge-featured {
+  background: rgba(29,185,84,0.25);
+  color: var(--accent);
+}
+
+.premium-plan-card h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.plan-price {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.plan-price span {
+  font-size: 0.9rem;
+  color: var(--muted);
+  font-weight: 500;
+}
+
+.plan-desc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.plan-features {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 12px;
+}
+
+.plan-features li {
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.plan-btn {
+  margin-top: auto;
+  min-width: 140px;
+}
+
+.artist-profile-header {
+  position: relative;
+  margin: -32px -32px 32px -32px;
+}
+
+.artist-banner {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 0 0 28px 28px;
+}
+
+.artist-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.artist-cover-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 30%, rgba(18,18,18,0.8) 100%);
+}
+
+.artist-profile-info {
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  display: grid;
+  gap: 12px;
+  color: var(--text);
+}
+
+.artist-badge {
+  display: inline-flex;
+  width: fit-content;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: rgba(29,185,84,0.18);
+  color: var(--accent);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.artist-profile-info h1 {
+  margin: 0;
+  font-size: 3.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.artist-profile-info > p {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--muted);
+}
+
+.artist-stats {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.artist-profile-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.artist-profile-actions button {
+  min-width: 120px;
+}
+
+.plan-btn {
+  margin-top: auto;
+  min-width: 140px;
+}
+
+.following {
+  background: rgba(29,185,84,0.2) !important;
+  color: var(--accent) !important;
+}
+
 body.search-active .hero-panel,
 body.search-active .section-block:not(#search-results-section) {
   display: none;
@@ -792,14 +981,14 @@ body.search-active .search-results-grid {
 .card {
   position: relative;
   min-height: 320px;
-  border-radius: 32px;
+  border-radius: 20px;
   overflow: hidden;
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.22);
+  background: linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   display: grid;
   grid-template-rows: auto 1fr;
-  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+  transition: all var(--transition);
 }
 
 .card::before {
@@ -812,8 +1001,9 @@ body.search-active .search-results-grid {
 
 .card:hover {
   transform: translateY(-8px);
-  box-shadow: 0 35px 90px rgba(0,0,0,0.3);
-  border-color: rgba(29,185,84,0.18);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.3);
+  border-color: rgba(29,185,84,0.25);
+  background: linear-gradient(135deg, rgba(29,185,84,0.1), rgba(255,255,255,0.05));
 }
 
 .card img {
@@ -1142,9 +1332,9 @@ body.search-active .search-results-grid {
   align-items: center;
   gap: 18px;
   padding: 18px 28px;
-  background: rgba(9,9,9,0.92);
+  background: linear-gradient(180deg, rgba(29,185,84,0.08), rgba(9,9,9,0.92));
   backdrop-filter: blur(24px);
-  border-top: 1px solid rgba(255,255,255,0.08);
+  border-top: 1px solid rgba(29,185,84,0.3);
   box-shadow: 0 -20px 60px rgba(0,0,0,0.25);
 }
 
@@ -1167,6 +1357,12 @@ body.search-active .search-results-grid {
   height: 54px;
   border-radius: 14px;
   object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+  transition: transform var(--transition);
+}
+
+.player-cover:hover {
+  transform: scale(1.05) translateY(-2px);
 }
 
 .player-left p {
@@ -1184,6 +1380,14 @@ body.search-active .search-results-grid {
   height: 48px;
   background: linear-gradient(135deg, var(--accent), #1ed760);
   color: #080808;
+  transition: all var(--transition);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.primary-circle:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 24px rgba(29,185,84,0.4);
 }
 
 .progress-shell {
@@ -1199,6 +1403,11 @@ body.search-active .search-results-grid {
   background: rgba(255,255,255,0.1);
   position: relative;
   cursor: pointer;
+  transition: height var(--transition);
+}
+
+.progress-track:hover {
+  height: 10px;
 }
 
 .progress-fill {
@@ -1206,6 +1415,7 @@ body.search-active .search-results-grid {
   width: 0%;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--accent), #1ed760);
+  box-shadow: 0 0 12px rgba(29,185,84,0.6);
 }
 
 .progress-thumb {
@@ -1218,6 +1428,12 @@ body.search-active .search-results-grid {
   background: var(--text);
   transform: translate(-50%, -50%);
   transition: left var(--transition);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+  opacity: 0;
+}
+
+.progress-track:hover .progress-thumb {
+  opacity: 1;
 }
 
 .time-label {
@@ -1401,6 +1617,36 @@ body.search-active .search-results-grid {
   border: 1px solid rgba(255,255,255,0.1);
   background: rgba(255,255,255,0.04);
   outline: none;
+}
+
+.password-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-field input {
+  width: 100%;
+  padding-right: 45px;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 16px;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity var(--transition);
+}
+
+.password-toggle:hover {
+  opacity: 0.7;
 }
 
 .auth-footer-checkbox {
