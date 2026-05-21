@@ -640,7 +640,7 @@ function togglePlayPause() {
     dom.audioPlayer.pause();
     dom.playPauseBtn.textContent = '▶';
   } else {
-    dom.audioPlayer.play().catch(() => {
+    dom.audioPlayer.play().catch(() => { 
       showToast('Failed to play audio.');
       state.isPlaying = false;
       dom.playPauseBtn.textContent = '▶';
