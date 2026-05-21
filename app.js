@@ -49,32 +49,80 @@ const demoSongs = [
     color: '#dd6c5f',
     lyrics: ['Vancouver di raat ch tu mere naal, shehar di roshni bana lai paas.', 'Yaar mere kehnde oh jehri gallan, dil vich rehndiyan ne akhri aas.'],
   },
+  {
+    id: 's5',
+    title: 'Forget About It',
+    artist: 'Sidhu Moosewala',
+    album: 'Forgiven',
+    image: '../assets/images/Forget.jpg',
+    audio_url: 'assets/songs/Forget%20About%20It%20Ft.%20Sunny%20Malton%20-%20Sidhu%20Moose%20Wala1%20(DJJOhAL.Com).mp3',
+    duration: '3:45',
+    plays: 102000,
+    color: '#6d3c82',
+    lyrics: ['Gallan teriyaan yaadan vich rehndiyaan, zindagi di raah vich bas tu hi rehndi.', 'Yaari da wada karda ae mere dil naal, kise hor di galla ch vi na bhaldi.'],
+  },
+  {
+    id: 's6',
+    title: 'Na Na Na',
+    artist: 'DJ City',
+    album: 'Club Nights',
+    image: '../assets/images/Lover.jpg',
+    audio_url: 'assets/songs/na_na_na.mp3',
+    duration: '3:15',
+    plays: 86000,
+    color: '#c36f47',
+    lyrics: ['Na na na, dil chakke vich nachna, raat di beat te saari duniya nachdi.', 'Club vich chamakdi teri smile, sadda mood ban gaya ajj raat kali.'],
+  },
+  {
+    id: 's7',
+    title: 'Peace',
+    artist: 'SoulSphere',
+    album: 'Calm Nights',
+    image: '../assets/images/Top_Fella.jpg',
+    audio_url: 'assets/songs/peace.mp3',
+    duration: '4:00',
+    plays: 72000,
+    color: '#2f6a8c',
+    lyrics: ['Sannata vich soni gallan, raat di hawa vich sirf teri yaad.', 'Dil nu shanti mile, jadon tu mere naal hove jad.'],
+  },
+  {
+    id: 's8',
+    title: 'Punjab',
+    artist: 'Eastern Beats',
+    album: 'Roots',
+    image: '../assets/images/Panjab.jpg',
+    audio_url: 'assets/songs/punjab.mp3',
+    duration: '3:33',
+    plays: 83000,
+    color: '#8b341c',
+    lyrics: ['Punjab diyaan galiyan, mere yaar diyaan yaadan.', 'Dhola mere naal nach le, dharti de rang milaan.'],
+  },
 ];
 
 const demoAlbums = [
   {
     id: 'a1',
-    title: 'Neon Drift',
-    artist: 'Luna Matrix',
-    image: 'https://images.unsplash.com/photo-1507878866276-a947ef722fee?auto=format&fit=crop&w=800&q=80',
+    title: 'P-Pop Culture',
+    artist: 'Karan Aujla',
+    image: '../assets/images/Gabhru.jpg',
   },
   {
     id: 'a2',
-    title: 'Astral Waves',
-    artist: 'Nyx Odyssey',
-    image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80',
+    title: 'Forgiven',
+    artist: 'Sidhu Moosewala',
+    image: '../assets/images/Forget.jpg',
   },
   {
     id: 'a3',
-    title: 'Afterglow',
-    artist: 'Echo Harbor',
-    image: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80',
+    title: 'Club Nights',
+    artist: 'DJ City',
+    image: '../assets/images/Lover.jpg',
   },
   {
     id: 'a4',
-    title: 'Midnight Motion',
-    artist: 'Nova Echo',
-    image: 'https://images.unsplash.com/photo-1511376777868-611b54f68947?auto=format&fit=crop&w=800&q=80',
+    title: 'Roots',
+    artist: 'Eastern Beats',
+    image: '../assets/images/Panjab.jpg',
   },
 ];
 
@@ -83,7 +131,7 @@ const demoArtists = [
     id: 'ar1',
     name: 'Karan Aujla',
     genre: 'Punjabi Pop',
-    image: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=800&q=80',
+    image: '../assets/images/Karan.jpg',
     followers: 1200000,
     songs: ['s1'],
   },
@@ -91,7 +139,7 @@ const demoArtists = [
     id: 'ar2',
     name: 'Sidhu Moosewala',
     genre: 'Hip Hop',
-    image: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80',
+    image: '../assets/images/Sidhu.jpg',
     followers: 950000,
     songs: ['s2'],
   },
@@ -99,7 +147,7 @@ const demoArtists = [
     id: 'ar3',
     name: 'Diljit Dosanjh',
     genre: 'Bhangra',
-    image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=800&q=80',
+    image: '../assets/images/Diljit.jpg',
     followers: 2100000,
     songs: ['s3'],
   },
@@ -107,9 +155,33 @@ const demoArtists = [
     id: 'ar4',
     name: 'Cheema Y',
     genre: 'Electronica',
-    image: 'https://images.unsplash.com/photo-1497032205916-ac775f0649ae?auto=format&fit=crop&w=800&q=80',
+    image: '../assets/images/Cheema.jpg',
     followers: 450000,
     songs: ['s4'],
+  },
+  {
+    id: 'ar5',
+    name: 'DJ City',
+    genre: 'Electronic',
+    image: '../assets/images/Lover.jpg',
+    followers: 560000,
+    songs: ['s6'],
+  },
+  {
+    id: 'ar6',
+    name: 'SoulSphere',
+    genre: 'Ambient',
+    image: '../assets/images/Top_Fella.jpg',
+    followers: 430000,
+    songs: ['s7'],
+  },
+  {
+    id: 'ar7',
+    name: 'Eastern Beats',
+    genre: 'Fusion',
+    image: '../assets/images/Panjab.jpg',
+    followers: 380000,
+    songs: ['s8'],
   },
 ];
 
@@ -247,7 +319,7 @@ function restorePlaybackState() {
       if (songIndex !== -1) {
         state.currentIndex = songIndex;
         const song = state.queue[state.currentIndex];
-        dom.audioPlayer.src = song.audio_url;
+        dom.audioPlayer.src = encodeURI(song.audio_url);
         dom.audioPlayer.currentTime = currentTime || 0;
         if (dom.volumeSlider) dom.volumeSlider.value = volume || 0.75;
         dom.audioPlayer.volume = volume || 0.75;
@@ -482,11 +554,12 @@ function renderCardSection(container, items) {
 }
 
 function renderSections() {
-  renderCardSection(dom.trendingCards, state.songs);
-  renderCardSection(dom.madeCards, state.songs.slice().reverse());
+  const midIndex = Math.ceil(state.songs.length / 2);
+  renderCardSection(dom.trendingCards, state.songs.slice(0, midIndex));
+  renderCardSection(dom.madeCards, state.songs.slice(midIndex));
   renderCardSection(dom.albumCards, demoAlbums);
   renderTopArtists();
-  
+
   // Hide premium and artist sections
   const premiumSection = document.querySelector('#premium-section');
   const artistSection = document.querySelector('#artist-profile-section');
@@ -508,7 +581,7 @@ function playSongById(id) {
   state.currentIndex = index;
   const song = state.queue[state.currentIndex];
   updateRecentlyPlayed(song.id);
-  dom.audioPlayer.src = song.audio_url;
+  dom.audioPlayer.src = encodeURI(song.audio_url);
   dom.audioPlayer.play().catch(() => {
     showToast('Failed to play audio. Please try another song.');
     state.isPlaying = false;
@@ -685,16 +758,16 @@ function showSuggestions(query) {
   }
   const lowerQuery = query.toLowerCase();
   const songSuggestions = state.songs.filter((song) => {
-    return song.title.toLowerCase().includes(lowerQuery) 
+    return song.title.toLowerCase().includes(lowerQuery)
       || song.artist.toLowerCase().includes(lowerQuery);
   }).slice(0, 5);
-  
+
   if (songSuggestions.length === 0) {
     dom.searchSuggestions.classList.remove('active');
     dom.searchSuggestions.innerHTML = '';
     return;
   }
-  
+
   dom.searchSuggestions.classList.add('active');
   dom.searchSuggestions.innerHTML = songSuggestions.map((song) => `<button class="text-btn suggestion-item" data-id="${song.id}">${song.title} • ${song.artist}</button>`).join('');
   dom.searchSuggestions.querySelectorAll('.suggestion-item').forEach((btn) => {
@@ -822,7 +895,7 @@ function renderSongDetailPage() {
   }
 
   document.title = `${song.title} • Pulse Music`;
-  
+
   const art = document.querySelector('#detail-song-art');
   const title = document.querySelector('#detail-title');
   const subtitle = document.querySelector('#detail-subtitle');
@@ -834,13 +907,13 @@ function renderSongDetailPage() {
   if (title) title.textContent = song.title;
   if (subtitle) subtitle.textContent = `${song.artist} · ${song.album}`;
   if (plays) plays.textContent = `${song.plays.toLocaleString()} plays`;
-  
+
   if (lyricsDisplay) {
-    lyricsDisplay.innerHTML = song.lyrics.length > 0 
+    lyricsDisplay.innerHTML = song.lyrics.length > 0
       ? song.lyrics.map((line) => `<p class="lyric-line">${line}</p>`).join('')
       : '<p class="muted">No lyrics available for this song.</p>';
   }
-  
+
   if (relatedGrid) {
     relatedGrid.innerHTML = '';
     state.songs.filter((item) => item.id !== song.id).slice(0, 6).forEach((item) => {
@@ -961,7 +1034,7 @@ function renderPlaylistDetailPage() {
 function renderArtistProfilePage() {
   const artistId = new URLSearchParams(window.location.search).get('artist');
   const artist = getArtistById(artistId);
-  
+
   if (!artist) {
     return;
   }
@@ -980,7 +1053,7 @@ function renderArtistProfilePage() {
   if (artistGenreEl) artistGenreEl.textContent = artist.genre;
   if (artistStatsEl) artistStatsEl.textContent = `${artist.followers?.toLocaleString()} followers`;
   if (artistCoverEl) artistCoverEl.src = artist.image;
-  
+
   const isFollowing = state.followedArtists.includes(artistId);
   if (artistFollowBtn) {
     artistFollowBtn.textContent = isFollowing ? 'Following' : 'Follow';
@@ -1368,11 +1441,11 @@ function mountProfileActions() {
       onPrimary: handleLogout,
     });
   });
-  
+
   // Set profile pictures to be consistent
   const avatarElements = document.querySelectorAll('.avatar');
-  const userInitial = state.user?.user_metadata?.username?.charAt(0).toUpperCase() || 
-                     state.user?.email?.charAt(0).toUpperCase() || 'U';
+  const userInitial = state.user?.user_metadata?.username?.charAt(0).toUpperCase() ||
+    state.user?.email?.charAt(0).toUpperCase() || 'U';
   avatarElements.forEach((avatar) => {
     avatar.textContent = userInitial;
   });
@@ -1425,7 +1498,7 @@ async function bootstrap() {
       return;
     }
     initializeState();
-    
+
     const artistId = new URLSearchParams(window.location.search).get('artist');
     if (artistId) {
       // Render artist profile

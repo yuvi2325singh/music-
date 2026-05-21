@@ -956,9 +956,7 @@ body.search-active .search-results-grid {
 }
 
 .horizontal-cards {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(220px, 1fr);
+  display: flex;
   gap: 18px;
   overflow-x: auto;
   padding-bottom: 6px;
@@ -967,6 +965,8 @@ body.search-active .search-results-grid {
 
 .horizontal-cards > * {
   scroll-snap-align: start;
+  flex: 0 0 240px;
+  width: 240px;
 }
 
 .horizontal-cards::-webkit-scrollbar {
