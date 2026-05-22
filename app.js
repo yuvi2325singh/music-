@@ -55,7 +55,7 @@ const demoSongs = [
     artist: 'Sidhu Moosewala',
     album: 'Forgiven',
     image: '../assets/images/Forget.jpg',
-    audio_url: 'assets/songs/Forget%20About%20It%20Ft.%20Sunny%20Malton%20-%20Sidhu%20Moose%20Wala1%20(DJJOhAL.Com).mp3',
+    audio_url: 'assets/songs/Forget.mp3',
     duration: '3:45',
     plays: 102000,
     color: '#6d3c82',
@@ -63,11 +63,11 @@ const demoSongs = [
   },
   {
     id: 's6',
-    title: 'Na Na Na',
-    artist: 'DJ City',
-    album: 'Club Nights',
+    title: 'Lover',
+    artist: 'Diljit Dosanjh',
+    album: 'Diljit',
     image: '../assets/images/Lover.jpg',
-    audio_url: 'assets/songs/na_na_na.mp3',
+    audio_url: 'assets/songs/Lover.mp3',
     duration: '3:15',
     plays: 86000,
     color: '#c36f47',
@@ -75,8 +75,8 @@ const demoSongs = [
   },
   {
     id: 's7',
-    title: 'Peace',
-    artist: 'SoulSphere',
+    title: 'Top Fella',
+    artist: 'Karan Aujla',
     album: 'Calm Nights',
     image: '../assets/images/Top_Fella.jpg',
     audio_url: 'assets/songs/peace.mp3',
@@ -87,9 +87,9 @@ const demoSongs = [
   },
   {
     id: 's8',
-    title: 'Punjab',
-    artist: 'Eastern Beats',
-    album: 'Roots',
+    title: 'Love Punjab',
+    artist: 'Jordan Sandhu',
+    album: 'Punjab',
     image: '../assets/images/Panjab.jpg',
     audio_url: 'assets/songs/punjab.mp3',
     duration: '3:33',
@@ -105,24 +105,28 @@ const demoAlbums = [
     title: 'P-Pop Culture',
     artist: 'Karan Aujla',
     image: '../assets/images/Gabhru.jpg',
+    songs: ['s1', 's7'],
   },
   {
     id: 'a2',
     title: 'Forgiven',
     artist: 'Sidhu Moosewala',
     image: '../assets/images/Forget.jpg',
+    songs: ['s2', 's5'],
   },
   {
     id: 'a3',
-    title: 'Club Nights',
-    artist: 'DJ City',
+    title: 'Diljit',
+    artist: 'Diljit Dosanjh',
     image: '../assets/images/Lover.jpg',
+    songs: ['s3', 's6'],
   },
   {
     id: 'a4',
-    title: 'Roots',
-    artist: 'Eastern Beats',
+    title: 'Punjab',
+    artist: 'Jordan Sandhu',
     image: '../assets/images/Panjab.jpg',
+    songs: ['s8'],
   },
 ];
 
@@ -133,7 +137,7 @@ const demoArtists = [
     genre: 'Punjabi Pop',
     image: '../assets/images/Karan.jpg',
     followers: 1200000,
-    songs: ['s1'],
+    songs: ['s1', 's7'],
   },
   {
     id: 'ar2',
@@ -141,7 +145,7 @@ const demoArtists = [
     genre: 'Hip Hop',
     image: '../assets/images/Sidhu.jpg',
     followers: 950000,
-    songs: ['s2'],
+    songs: ['s2', 's5'],
   },
   {
     id: 'ar3',
@@ -149,7 +153,7 @@ const demoArtists = [
     genre: 'Bhangra',
     image: '../assets/images/Diljit.jpg',
     followers: 2100000,
-    songs: ['s3'],
+    songs: ['s3', 's6'],
   },
   {
     id: 'ar4',
@@ -161,24 +165,8 @@ const demoArtists = [
   },
   {
     id: 'ar5',
-    name: 'DJ City',
-    genre: 'Electronic',
-    image: '../assets/images/Lover.jpg',
-    followers: 560000,
-    songs: ['s6'],
-  },
-  {
-    id: 'ar6',
-    name: 'SoulSphere',
-    genre: 'Ambient',
-    image: '../assets/images/Top_Fella.jpg',
-    followers: 430000,
-    songs: ['s7'],
-  },
-  {
-    id: 'ar7',
-    name: 'Eastern Beats',
-    genre: 'Fusion',
+    name: 'Jordan Sandhu',
+    genre: 'Punjabi Folk',
     image: '../assets/images/Panjab.jpg',
     followers: 380000,
     songs: ['s8'],
@@ -952,7 +940,6 @@ function renderAlbumDetailPage() {
   const album = getAlbumById(albumId);
   const albumTitle = document.querySelector('#album-title');
   const albumArtist = document.querySelector('#album-artist');
-  const albumArt = document.querySelector('#album-art');
   const albumDescription = document.querySelector('#album-description');
   const albumTracks = document.querySelector('#album-tracks');
 
@@ -962,15 +949,22 @@ function renderAlbumDetailPage() {
   }
 
   document.title = `${album.title} • Pulse Music`;
-  if (albumArt) albumArt.src = album.image;
   if (albumTitle) albumTitle.textContent = album.title;
   if (albumArtist) albumArtist.textContent = album.artist;
-  if (albumDescription) albumDescription.textContent = `Discover the full album ${album.title} by ${album.artist}, including curated tracks and bonus content.`;
-  const tracks = state.songs.filter((song) => song.album === album.title);
+  if (albumDescription) albumDescription.textContent = `Album by ${album.artist} with ${album.songs.length} track${album.songs.length === 1 ? '' : 's'} from the ${album.title} collection.`;
+  const tracks = album.songs?.length
+    ? state.songs.filter((song) => album.songs.includes(song.id))
+    : state.songs.filter((song) => song.artist === album.artist);
   if (albumTracks) {
     albumTracks.innerHTML = tracks.length ? tracks.map((song, index) => `
       <li class="track-item">
-        <span>${index + 1}. ${song.title}</span>
+        <div class="track-preview">
+          <img src="${song.image}" alt="${song.title}" />
+          <div class="track-text">
+            <strong>${index + 1}. ${song.title}</strong>
+            <small>${song.artist}</small>
+          </div>
+        </div>
         <div class="track-actions">
           <button class="text-btn" data-id="${song.id}">Play</button>
           <button class="text-btn" data-id="${song.id}">Open</button>
@@ -1064,13 +1058,13 @@ function renderArtistProfilePage() {
   }
 
   if (artistPlayBtn) {
-    const artistSongs = state.songs.filter((song) => demoArtists.find((a) => a.id === artistId)?.songs?.includes(song.id));
+    const artistSongs = state.songs.filter((song) => song.artist === artist.name);
     if (artistSongs.length > 0) {
       artistPlayBtn.addEventListener('click', () => playSongById(artistSongs[0].id));
     }
   }
 
-  const artistSongs = state.songs.filter((song) => demoArtists.find((a) => a.id === artistId)?.songs?.includes(song.id));
+  const artistSongs = state.songs.filter((song) => song.artist === artist.name);
   if (artistSongsGrid) {
     artistSongsGrid.innerHTML = '';
     if (artistSongs.length > 0) {

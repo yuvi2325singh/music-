@@ -1103,11 +1103,53 @@ body.search-active .search-results-grid {
   gap: 48px;
 }
 
-.song-hero {
+.song-hero,
+.detail-hero {
   display: grid;
-  grid-template-columns: minmax(300px, 380px) 1fr;
-  gap: 48px;
+  grid-template-columns: 1fr;
+  gap: 32px;
   align-items: start;
+}
+
+@media (min-width: 980px) {
+  .song-hero {
+    grid-template-columns: minmax(300px, 380px) 1fr;
+  }
+}
+
+.album-hero-info {
+  max-width: 780px;
+}
+
+.album-meta {
+  margin-top: 18px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+.track-preview {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 16px;
+  align-items: center;
+}
+
+.track-preview img {
+  width: 72px;
+  height: 72px;
+  border-radius: 18px;
+  object-fit: cover;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+}
+
+.track-text strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.track-text small {
+  color: var(--muted);
+  font-size: 0.95rem;
 }
 
 .song-artwork {
@@ -1285,6 +1327,9 @@ body.search-active .search-results-grid {
 .track-list {
   display: grid;
   gap: 18px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
 .track-item {
