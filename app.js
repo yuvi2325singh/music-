@@ -6,7 +6,7 @@ const demoSongs = [
     title: 'MF Gabhru',
     artist: 'Karan Aujla',
     album: 'P-Pop Culture',
-    image: '../assets/images/Gabhru.jpg',
+    image: 'assets/images/Gabhru.jpg',
     audio_url: 'assets/songs/gabhru.mp3',
     duration: '3:28',
     plays: 128000,
@@ -18,7 +18,7 @@ const demoSongs = [
     title: 'Barood',
     artist: 'Sidhu Moosewala',
     album: 'Sidhu',
-    image: '../assets/images/barood.jpg',
+    image: 'assets/images/barood.jpg',
     audio_url: 'assets/songs/barood.mp3',
     duration: '4:12',
     plays: 94000,
@@ -30,7 +30,7 @@ const demoSongs = [
     title: 'Don',
     artist: 'Diljit Dosanjh',
     album: 'Diljit',
-    image: '../assets/images/Don.jpg',
+    image: 'assets/images/Don.jpg',
     audio_url: 'assets/songs/Don.mp3',
     duration: '3:58',
     plays: 113500,
@@ -42,7 +42,7 @@ const demoSongs = [
     title: 'Vancouver',
     artist: 'Cheema Y',
     album: 'G.O.A.T.',
-    image: '../assets/images/Young.jpg',
+    image: 'assets/images/Young.jpg',
     audio_url: 'assets/songs/Vancouver.mp3',
     duration: '4:04',
     plays: 76000,
@@ -54,7 +54,7 @@ const demoSongs = [
     title: 'Forget About It',
     artist: 'Sidhu Moosewala',
     album: 'Forgiven',
-    image: '../assets/images/Forget.jpg',
+    image: 'assets/images/Forget.jpg',
     audio_url: 'assets/songs/Forget.mp3',
     duration: '3:45',
     plays: 102000,
@@ -66,7 +66,7 @@ const demoSongs = [
     title: 'Lover',
     artist: 'Diljit Dosanjh',
     album: 'Diljit',
-    image: '../assets/images/Lover.jpg',
+    image: 'assets/images/Lover.jpg',
     audio_url: 'assets/songs/Lover.mp3',
     duration: '3:15',
     plays: 86000,
@@ -78,8 +78,8 @@ const demoSongs = [
     title: 'Top Fella',
     artist: 'Karan Aujla',
     album: 'Calm Nights',
-    image: '../assets/images/Top_Fella.jpg',
-    audio_url: 'assets/songs/peace.mp3',
+    image: 'assets/images/Top_Fella.jpg',
+    audio_url: 'assets/songs/Fella.mp3',
     duration: '4:00',
     plays: 72000,
     color: '#2f6a8c',
@@ -90,8 +90,8 @@ const demoSongs = [
     title: 'Love Punjab',
     artist: 'Jordan Sandhu',
     album: 'Punjab',
-    image: '../assets/images/Panjab.jpg',
-    audio_url: 'assets/songs/punjab.mp3',
+    image: 'assets/images/Panjab.jpg',
+    audio_url: 'assets/songs/Panjab.mp3',
     duration: '3:33',
     plays: 83000,
     color: '#8b341c',
@@ -104,28 +104,28 @@ const demoAlbums = [
     id: 'a1',
     title: 'P-Pop Culture',
     artist: 'Karan Aujla',
-    image: '../assets/images/Gabhru.jpg',
+    image: 'assets/images/Gabhru.jpg',
     songs: ['s1', 's7'],
   },
   {
     id: 'a2',
     title: 'Forgiven',
     artist: 'Sidhu Moosewala',
-    image: '../assets/images/Forget.jpg',
+    image: 'assets/images/Forget.jpg',
     songs: ['s2', 's5'],
   },
   {
     id: 'a3',
     title: 'Diljit',
     artist: 'Diljit Dosanjh',
-    image: '../assets/images/Lover.jpg',
+    image: 'assets/images/Lover.jpg',
     songs: ['s3', 's6'],
   },
   {
     id: 'a4',
     title: 'Punjab',
     artist: 'Jordan Sandhu',
-    image: '../assets/images/Panjab.jpg',
+    image: 'assets/images/Panjab.jpg',
     songs: ['s8'],
   },
 ];
@@ -135,7 +135,7 @@ const demoArtists = [
     id: 'ar1',
     name: 'Karan Aujla',
     genre: 'Punjabi Pop',
-    image: '../assets/images/Karan.jpg',
+    image: 'assets/images/Karan.jpg',
     followers: 1200000,
     songs: ['s1', 's7'],
   },
@@ -143,7 +143,7 @@ const demoArtists = [
     id: 'ar2',
     name: 'Sidhu Moosewala',
     genre: 'Hip Hop',
-    image: '../assets/images/Sidhu.jpg',
+    image: 'assets/images/Sidhu.jpg',
     followers: 950000,
     songs: ['s2', 's5'],
   },
@@ -151,7 +151,7 @@ const demoArtists = [
     id: 'ar3',
     name: 'Diljit Dosanjh',
     genre: 'Bhangra',
-    image: '../assets/images/Diljit.jpg',
+    image: 'assets/images/Diljit.jpg',
     followers: 2100000,
     songs: ['s3', 's6'],
   },
@@ -159,7 +159,7 @@ const demoArtists = [
     id: 'ar4',
     name: 'Cheema Y',
     genre: 'Electronica',
-    image: '../assets/images/Cheema.jpg',
+    image: 'assets/images/Cheema.jpg',
     followers: 450000,
     songs: ['s4'],
   },
@@ -167,7 +167,7 @@ const demoArtists = [
     id: 'ar5',
     name: 'Jordan Sandhu',
     genre: 'Punjabi Folk',
-    image: '../assets/images/Panjab.jpg',
+    image: 'assets/images/Panjab.jpg',
     followers: 380000,
     songs: ['s8'],
   },
@@ -195,7 +195,143 @@ const state = {
   shuffleMode: false,
   recentlyPlayed: [],
   notifications: [],
+  audioLoading: false,
+  audioRetries: 0,
+  maxRetries: 3,
 };
+
+// ====== AUDIO UTILITIES ======
+/**
+ * Audio loading and error handling utility
+ * Handles playback errors, retries, and state management
+ */
+const audioManager = {
+  preloadTimer: null,
+  failedSongs: new Set(),
+  
+  /**
+   * Load and play audio with error handling
+   */
+  async loadAndPlay(song) {
+    if (!song || !dom.audioPlayer) return false;
+    
+    state.audioLoading = true;
+    showLoadingState(true);
+    
+    try {
+      // Set source and prepare for playback
+      const audioUrl = encodeURI(song.audio_url);
+      dom.audioPlayer.src = audioUrl;
+      
+      // Small delay to ensure src is set
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Try to play
+      const playPromise = dom.audioPlayer.play();
+      if (playPromise instanceof Promise) {
+        await playPromise;
+      }
+      
+      state.audioLoading = false;
+      showLoadingState(false);
+      state.audioRetries = 0;
+      this.failedSongs.delete(song.id);
+      
+      return true;
+    } catch (error) {
+      console.error('Audio playback error:', error);
+      return this.handlePlaybackError(song, error);
+    }
+  },
+  
+  /**
+   * Handle playback errors with retry logic
+   */
+  async handlePlaybackError(song, error) {
+    state.audioLoading = false;
+    showLoadingState(false);
+    
+    const errorMessage = this.getErrorMessage(error);
+    console.warn(`Playback failed for ${song.title}:`, errorMessage);
+    
+    // Check if we should retry
+    if (state.audioRetries < state.maxRetries) {
+      state.audioRetries++;
+      showToast(`Retrying playback... (${state.audioRetries}/${state.maxRetries})`);
+      
+      // Wait before retry
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      return this.loadAndPlay(song);
+    }
+    
+    // Max retries exceeded
+    this.failedSongs.add(song.id);
+    state.isPlaying = false;
+    state.audioRetries = 0;
+    
+    showToast(`❌ Unable to play "${song.title}". Skipping to next...`);
+    
+    // Auto-skip to next song
+    setTimeout(() => nextSong(), 1500);
+    
+    return false;
+  },
+  
+  /**
+   * Get user-friendly error message
+   */
+  getErrorMessage(error) {
+    if (!error) return 'Unknown error';
+    if (error.name === 'NotAllowedError') return 'Autoplay denied by browser';
+    if (error.name === 'NotSupportedError') return 'Audio format not supported';
+    if (error.name === 'AbortError') return 'Playback aborted';
+    return error.message || 'Playback failed';
+  },
+  
+  /**
+   * Preload next song for smoother transitions
+   */
+  preloadNext() {
+    if (this.preloadTimer) clearTimeout(this.preloadTimer);
+    
+    this.preloadTimer = setTimeout(() => {
+      const nextIndex = (state.currentIndex + 1) % state.queue.length;
+      const nextSong = state.queue[nextIndex];
+      
+      if (nextSong && !this.failedSongs.has(nextSong.id)) {
+        const audio = new Audio();
+        audio.src = encodeURI(nextSong.audio_url);
+        // Just preload, don't play
+      }
+    }, 1000);
+  },
+  
+  /**
+   * Validate if audio file exists and is accessible
+   */
+  async validateAudio(url) {
+    try {
+      const response = await fetch(url, { method: 'HEAD' });
+      return response.ok;
+    } catch {
+      return false;
+    }
+  },
+};
+
+/**
+ * Show/hide loading state during audio load
+ */
+function showLoadingState(isLoading) {
+  if (!dom.playPauseBtn) return;
+  if (isLoading) {
+    dom.playPauseBtn.textContent = '⏳';
+    dom.playPauseBtn.disabled = true;
+  } else {
+    dom.playPauseBtn.disabled = false;
+    // Will be updated by play/pause logic
+  }
+}
 
 const dom = {
   searchInput: document.querySelector('#global-search'),
@@ -624,15 +760,19 @@ function togglePlayPause() {
     playSongById(state.queue[state.currentIndex].id);
     return;
   }
+  
   if (state.isPlaying) {
     dom.audioPlayer.pause();
     dom.playPauseBtn.textContent = '▶';
   } else {
-    dom.audioPlayer.play().catch(() => { 
-      showToast('Failed to play audio.');
-      state.isPlaying = false;
-      dom.playPauseBtn.textContent = '▶';
-    });
+    const playPromise = dom.audioPlayer.play();
+    if (playPromise instanceof Promise) {
+      playPromise.catch((error) => {
+        showToast(`⚠️ ${audioManager.getErrorMessage(error)}`);
+        state.isPlaying = false;
+        dom.playPauseBtn.textContent = '▶';
+      });
+    }
     dom.playPauseBtn.textContent = '▮▮';
   }
   state.isPlaying = !state.isPlaying;
@@ -1223,18 +1363,38 @@ function attachPlayerEvents() {
     nextSong();
   });
   dom.audioPlayer.addEventListener('play', () => {
+    state.isPlaying = true;
+    showLoadingState(false);
     savePlaybackState();
   });
   dom.audioPlayer.addEventListener('pause', () => {
-    savePlaybackState();
-  });
-  dom.audioPlayer.addEventListener('timeupdate', () => {
-    savePlaybackState();
-  });
-  dom.audioPlayer.addEventListener('error', () => {
-    showToast('Failed to load audio. Please try another song.');
     state.isPlaying = false;
-    dom.playPauseBtn.textContent = '▶';
+    savePlaybackState();
+  });
+  dom.audioPlayer.addEventListener('loading', () => {
+    showLoadingState(true);
+  });
+  dom.audioPlayer.addEventListener('canplay', () => {
+    showLoadingState(false);
+  });
+  dom.audioPlayer.addEventListener('error', (event) => {
+    const currentSong = state.queue[state.currentIndex];
+    const errorCode = dom.audioPlayer.error?.code;
+    let errorMsg = 'Failed to load audio.';
+    
+    if (errorCode === 1) errorMsg = 'Audio loading aborted.';
+    else if (errorCode === 2) errorMsg = 'Network error while loading audio.';
+    else if (errorCode === 3) errorMsg = 'Audio loading was aborted.';
+    else if (errorCode === 4) errorMsg = 'Unsupported audio format.';
+    
+    console.warn(`Audio error (${errorCode}):`, errorMsg, currentSong?.title);
+    
+    // Try to skip to next song instead of showing error
+    if (currentSong) {
+      audioManager.failedSongs.add(currentSong.id);
+      showToast(`❌ ${errorMsg} Skipping...`);
+      setTimeout(() => nextSong(), 1500);
+    }
   });
 
   dom.playPauseBtn?.addEventListener('click', togglePlayPause);
